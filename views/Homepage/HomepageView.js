@@ -1,15 +1,24 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { Image, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 
 const HomepageView = () => {
     return (
-        <View style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
-            <Text>Home Screen</Text>
-        </View>
+        <ScrollView style={styles.container}
+            showsVerticalScrollIndicator={false}>
+            <Image></Image>
+        </ScrollView>
     );
 };
 
 export default HomepageView;
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginVertical: 2,
+        marginHorizontal: 12,
+    },
+});

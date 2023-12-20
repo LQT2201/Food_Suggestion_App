@@ -7,8 +7,37 @@ import LoginView from './views/LoginView';
 import SignupView from './views/SignupView';
 import { AuthProvider } from './AuthContext.js';
 import HomepageView from './views/Homepage/HomepageView.js';
+import AccountScreen from './views/AccountScreen.js';
+import FavouriteScreen from './views/FavouriteScreen.js';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+
+const MainTabs = () => (
+  <Tab.Navigator >
+    <Tab.Screen name="Home" component={HomepageView}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="home" color={color} size={size} />
+        ), headerShown: false
+      }} />
+    <Tab.Screen name="Favourites" component={FavouriteScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="heart" color={color} size={size} />
+        ), headerShown: false
+      }}
+    />
+    <Tab.Screen name="Account" component={AccountScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="person" color={color} size={size} />
+        ), headerShown: false,
+      }}
+    />
+  </Tab.Navigator>
+);
 
 const App = () => {
   return (
@@ -29,7 +58,7 @@ const App = () => {
           />
           <Stack.Screen
             name="Homepage"
-            component={HomepageView}
+            component={MainTabs}
           />
         </Stack.Navigator>
       </AuthProvider>
