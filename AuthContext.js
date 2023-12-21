@@ -1,7 +1,4 @@
 import React, { createContext, useState, } from 'react';
-
-//Nguyễn Văn Phong -- 21522461
-
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -10,7 +7,7 @@ const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = () => {
-        if (email === '21522461@gm.uit.edu.vn' && password === '123123') {
+        if (email === '1' && password === '1') {
             setIsAuthenticated(true);
             console.log(isAuthenticated);
         } else {

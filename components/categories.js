@@ -1,45 +1,61 @@
-import { ScrollView, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { TextInput,Image, Text, TouchableOpacity, ScrollView, StyleSheet, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
-export default function Categories({ categories }) {
 
-    return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.container}>
-                {
-                    categories.map((cat, index) => {
-                        return (
-                            <TouchableOpacity
-                                key={index}
-                                style={styles.category_item}
-                            >
-                                <View>
-                                    <Image
-                                        style={{ width: 50, height: 50, padding: 10, backgroundColor: '#bebebe', borderRadius: 50 }}
-                                        source={{ uri: cat.strCategoryThumb }}
-                                    />
-                                </View>
-                                <Text>{cat.strCategory}</Text>
-                            </TouchableOpacity>
-                        )
-                    })
-                }
-            </View>
-        </ScrollView>
+
+export default function Categories({categories, activeCateogry, setActiveCategory} ) {
+        
+    return(
+        <Animated.View entering={FadeInDown.duration(500).springify()}>
+            <ScrollView 
+            horizontal
+            showsHorizontalScrollIndicator= {false}
+            contentContainerStyle= {{paddingHorizontal:15}}>
+            {
+                categories.map((cat,index) => {
+
+                    return(
+                        <TouchableOpacity
+                        // onPress={()=>setActiveCategory(cat.name)}
+                        style={styles.category_container}
+                        key={index}>
+                            <View>
+                                <Image
+                                source={{ uri: cat.strCategoryThumb }} 
+                                style={styles.category_image}/>
+                            </View>
+                            <Text style={styles.category_name}>
+                                {cat.strCategory}
+                            </Text>
+                        </TouchableOpacity>
+                    );
+                })
+            }
+        
+            </ScrollView>
+        </Animated.View>
     )
-};
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row', // Hiển thị các phần tử con theo chiều ngang
-        // Căn giữa theo chiều ngang
-        backgroundColor: '#f2f2f2',
-        paddingVertical: 10, // Thiết lập hiển thị chiều ngang
-
+    category_container: {
+        marginTop: 20,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginRight:20,
     },
-    category_item: {
-        paddingHorizontal: 20,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-})
+    category_image: {
+        width: 60, // Set your desired width
+        height: 60,
+        borderRadius: 50, 
+    },
+    category_name: {
+        fontSize: 16,
+        fontWeight: '600',
+    },
+
+
+});
