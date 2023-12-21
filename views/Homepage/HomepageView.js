@@ -4,17 +4,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Categories from '../../components/categories';
-
+import Recipes from '../../components/recipes';
 
 
 const HomepageView = () => {
 
     const [categories, setCategories] = useState([]);
+    const [meals, setMeals] = useState([]);
 
     useEffect(
         () => {
             getCategories();
-
+            getRecipes();
         }, [])
 
     const getCategories = async () => {
@@ -28,6 +29,19 @@ const HomepageView = () => {
             console.log('error: ', err.message);
         }
     }
+    const getRecipes = async (category = "Beef") => {
+        try {
+            const response = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+
+            if (response && response.data) {
+                setMeals(response.data.meals);
+            }
+        } catch (err) {
+            console.log('error: ', err.message);
+        }
+    }
+
+
 
     return (
         <ScrollView style={styles.container}
@@ -38,8 +52,10 @@ const HomepageView = () => {
                 </Text>
             </View>
             <View>
-
                 <Categories categories={categories} />
+            </View>
+            <View>
+                <Recipes meals={meals} categories={categories} />
             </View>
         </ScrollView>
 
